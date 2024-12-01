@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { RecipeComponent } from './components/recipe/recipe.component';
-import { UserComponent } from './components/user/user/user.component';
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
 import { LoginComponent } from './components/user/login/login.component';
+import { AddRecipeComponent } from './components/recipe/add-recipe/add-recipe.component';
+import { RegisterComponent } from './components/user/register/register.component';
 
 export const routes: Routes = [
     {
@@ -14,8 +15,8 @@ export const routes: Routes = [
         component: RecipeComponent
     },
     {
-        path: 'users',
-        component: UserComponent
+        path: 'add-recipe',
+        component: AddRecipeComponent
     },
     {
         path: 'user-profile', 
@@ -24,5 +25,13 @@ export const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent
+    }, 
+    {
+        path: 'register',
+        component: RegisterComponent  
+    },
+    {
+        path: 'add-recipe', 
+        component: AddRecipeComponent
     }
 ];
