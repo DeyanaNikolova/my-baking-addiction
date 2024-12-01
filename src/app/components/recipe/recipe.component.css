@@ -1,0 +1,6 @@
+.container-md{
+    display: grid;
+    gap: 50px 100px;
+    grid-auto-rows: max-content;
+    grid-template:350px / auto auto auto;
+}
