@@ -25,9 +25,8 @@ export class NavbarComponent {
   }
 
   logout(): void{
-  this.userService.logout().subscribe(()=>{
+    this.userService.logout()
     this.router.navigate(['/home']);
-  });
   }
 
   userProfile(){
