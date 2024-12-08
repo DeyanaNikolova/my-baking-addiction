@@ -5,6 +5,7 @@ import { UserProfileComponent } from './components/user/user-profile/user-profil
 import { LoginComponent } from './components/user/login/login.component';
 import { AddRecipeComponent } from './components/recipe/add-recipe/add-recipe.component';
 import { RegisterComponent } from './components/user/register/register.component';
+import { RecipeDetailsComponent } from './components/recipe/recipe-details/recipe-details.component';
 
 export const routes: Routes = [
     {
@@ -29,6 +30,20 @@ export const routes: Routes = [
     {
         path: 'register',
         component: RegisterComponent  
+    },
+    {
+        path: 'recipes',
+        children: [
+            {
+                path: '',
+                pathMatch: 'full',
+                component: RecipeComponent
+            },
+            {
+                path: ':recipeId',
+                component: RecipeDetailsComponent
+            },
+        ]
     },
     {
         path: 'add-recipe', 
