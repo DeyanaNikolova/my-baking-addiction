@@ -1,14 +1,141 @@
-<div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="...">
+<div class="card form-signin w-100 m-auto" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <h5 class="card-title">Add Recipe</h5>
+      <form [formGroup]="recipeForm" (submit)="submit()">
+        <!-- Title -->
+        <div class="mb-3">
+          <label for="title" class="form-label">title</label>
+          <input
+            formControlName="title"
+            type="text"
+            class="form-control"
+            name="title"
+            [ngClass]="{'is-invalid': titleCtrl.errors && titleCtrl.dirty, 'is-valid': !titleCtrl.errors && titleCtrl.dirty}"
+          />
+        </div>
+        <div class="mb-3 text-danger" *ngIf="titleCtrl.errors && titleCtrl.dirty">
+          <span *ngIf="titleCtrl.errors['required']">Title is required!</span>
+          <span *ngIf="titleCtrl.errors['minlength']">Title sholud be at least 3 characters long!</span>
+          <span *ngIf="titleCtrl.errors['maxlength']">Title sholud not be longer than 35 characters!</span>
+        </div>
+
+        <!-- Short Description -->
+        <div class="mb-3">
+          <label for="shortDescription" class="form-label">Short Description</label>
+          <input
+            formControlName="shortDescription"
+            type="text"
+            class="form-control"
+            name="shortDescription"
+            [ngClass]="{'is-invalid': shortDescriptionCtrl.errors && shortDescriptionCtrl.dirty, 'is-valid': !shortDescriptionCtrl.errors && shortDescriptionCtrl.dirty}"
+          />
+        </div>
+        <div class="mb-3 text-danger" *ngIf="shortDescriptionCtrl.errors && shortDescriptionCtrl.dirty">
+          <span *ngIf="shortDescriptionCtrl.errors['required']">Short description is required!</span>
+          <span *ngIf="shortDescriptionCtrl.errors['minlength']">Description sholud be at least 3 characters long!</span>
+          <span *ngIf="shortDescriptionCtrl.errors['maxlength']">Description sholud not be longer than 150 characters!</span>
+        </div>
+
+        <!-- Image -->
+        <div class="mb-3">
+          <label for="imageUrl" class="form-label">Image</label>
+          <input
+            formControlName="imageUrl"
+            type="text"
+            class="form-control"
+            name="imageUrl"
+            [ngClass]="{'is-invalid': imageUrlCtrl.errors && imageUrlCtrl.dirty, 'is-valid': !imageUrlCtrl.errors && imageUrlCtrl.dirty}"
+          />
+        </div>
+        <div class="mb-3 text-danger" *ngIf="imageUrlCtrl.errors && imageUrlCtrl.dirty">
+          <span *ngIf="imageUrlCtrl.errors['required']">Image is required!</span>
+        </div>
+
+        <!-- Ingredients -->
+        <div class="mb-3">
+          <label for="ingredients" class="form-label">Ingredients</label>
+          <input
+            formControlName="ingredients"
+            type="text"
+            class="form-control"
+            id="ingredients"
+            name="ingredients"
+            [ngClass]="{'is-invalid': ingredientsCtrl.errors && ingredientsCtrl.dirty, 'is-valid': !ingredientsCtrl.errors && imageUrlCtrl.dirty}"
+          />
+        </div>
+        <div class="mb-3 text-danger" *ngIf="ingredientsCtrl.errors && ingredientsCtrl.dirty">
+          <span *ngIf="ingredientsCtrl.errors['required']">Ingredients are required!</span>
+          <span *ngIf="ingredientsCtrl.errors['minlength']">Ingredients sholud be at least 50 characters long!</span>
+        </div>
+
+        <!-- Instructions -->
+        <div class="mb-3">
+          <label for="instructions" class="form-label">Instructions</label>
+          <input
+            formControlName="instructions"
+            type="text"
+            class="form-control"
+            name="instructions"
+            [ngClass]="{'is-invalid': instructionsCtrl.errors && instructionsCtrl.dirty, 'is-valid': !instructionsCtrl.errors && ingredientsCtrl.dirty}"
+          />
+        </div>
+        <div class="mb-3 text-danger" *ngIf="instructionsCtrl.errors && instructionsCtrl.dirty">
+          <span *ngIf="instructionsCtrl.errors['required']">Instructions are required!</span>
+          <span *ngIf="instructionsCtrl.errors['minlength']">Instructions sholud be at least 50 characters long!</span>
+        </div>
+
+        <!-- Preparation Time -->
+        <div class="mb-3">
+          <label for="prepTime" class="form-label">Preparation Time</label>
+          <input
+          formControlName="prepTime"
+            type="text"
+            class="form-control"
+            name="prepTime"
+            [ngClass]="{'is-invalid': prepTimeCtrl.errors && prepTimeCtrl.dirty, 'is-valid': !prepTimeCtrl.errors && prepTimeCtrl.dirty}"
+          />
+        </div>
+        <div class="mb-3 text-danger" *ngIf="prepTimeCtrl.errors && prepTimeCtrl.dirty">
+          <span *ngIf="prepTimeCtrl.errors['required']">Preparation time is required!</span>
+        </div>
+
+        <!-- Cooking Time -->
+        <div class="mb-3">
+          <label for="cookTime" class="form-label">Cooking Time</label>
+          <input
+          formControlName="cookTime"
+            type="text"
+            class="form-control"
+            name="cookTime"
+            [ngClass]="{'is-invalid': cookTimeCtrl.errors && cookTimeCtrl.dirty, 'is-valid': !cookTimeCtrl.errors && cookTimeCtrl.dirty}"
+          />
+        </div>
+        <div class="mb-3 text-danger" *ngIf="cookTimeCtrl.errors && cookTimeCtrl.dirty">
+          <span *ngIf="cookTimeCtrl.errors['required']">Cook time is required!</span>
+        </div>
+
+        <!-- Servings -->
+        <div class="mb-3">
+          <label for="servings" class="form-label">Servings</label>
+          <input
+          formControlName="servings"
+            type="number"
+            class="form-control"
+            name="servings"
+            [ngClass]="{'is-invalid': servingsCtrl.errors && servingsCtrl.dirty, 'is-valid': !servingsCtrl.errors && servingsCtrl.dirty}"
+          />
+        </div>
+        <div class="mb-3 text-danger" *ngIf="servingsCtrl.errors && servingsCtrl.dirty">
+          <span *ngIf="servingsCtrl.errors['required']">Servings are required!</span>
+        </div>
+
+        <!-- Button -->
+        <div class="mb-3" style="float: right">
+          <button type="submit" class="btn btn-success">Add Recipe</button>
+        </div>
+      </form>
     </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">An item</li>
-      <li class="list-group-item">A second item</li>
-      <li class="list-group-item">A third item</li>
-    </ul>
+
     <div class="card-body">
       <a href="#" class="card-link">Card link</a>
       <a href="#" class="card-link">Another link</a>
