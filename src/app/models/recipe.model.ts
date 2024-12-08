@@ -5,13 +5,12 @@ export interface Recipe{
     _id: string;
     title: string;
     shortDescription: string;
-    imageUrl: URL;
+    imageUrl: string;
     ingredients: string;
     instructions: string;
     prepTime: string;
     cookTime: string;
     servings: number;
-    owner: User;
     _createdOn: Time;
     _ownerId: User; 
 }
