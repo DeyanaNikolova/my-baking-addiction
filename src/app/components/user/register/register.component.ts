@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, Validators, FormControl } from '@angular/forms';
-
+import { UserService } from '../../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,19 @@ export class RegisterComponent {
     repassword: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)])
   });
 
+  constructor(private userService: UserService, private router: Router) {}
+
+
   submit(){
-  
+    if(this.registerForm.invalid){
+      return;
+    }
+
+    const { email, username, password } = this.registerForm.value;
+    console.log(email, username, password);
+    
+    this.userService.register( email, username, password ).subscribe(()=>{  
+      this.router.navigate(['/recipes']);
+    })
   }
 }
