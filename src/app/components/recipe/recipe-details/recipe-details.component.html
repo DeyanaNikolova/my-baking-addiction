@@ -1,0 +1,31 @@
+<div class="card" style="width: 18rem;" *ngIf="recipe">
+    <img src="{{recipe.imageUrl}}" class="card-img-top" alt="recipe image">
+    <div class="card-body">
+      <h5 class="card-title text-bg-dark">{{ recipe.title }}</h5>
+
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item ">
+          <p class="text-bg-dark">Short Description</p>
+          <p class="card-text">{{ recipe.shortDescription}}</p>
+        </li>
+        <li class="list-group-item">
+          <p class="text-bg-dark">Ingredients</p>
+          <p class="card-text">{{ recipe.ingredients}}</p>
+        </li>
+        <li class="list-group-item">
+          <p class="text-bg-dark">Instructions</p>
+          <p class="card-text">{{ recipe.instructions}}</p>
+        </li>
+      </ul>
+<div>
+  <br>
+</div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Prep Time: {{recipe.prepTime}}</li>
+        <li class="list-group-item">Cook Time: {{ recipe.cookTime}}</li>
+        <li class="list-group-item">Servings: {{ recipe.servings}}</li>
+      </ul>
+
+      <a routerLink="/recipes" class="btn btn-primary">Go back to all recipes</a>
+    </div>
+  </div>
