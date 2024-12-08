@@ -26,20 +26,15 @@ export class AuthService {
   }
 
   getToken() {
-    const token = sessionStorage.getItem('token');
-    console.log(token); 
-    return token;
+   return sessionStorage.getItem('token') || '';
   }
 
   getUser(){
     const user = sessionStorage.getItem('user') || '';
     this.user = JSON.parse(user);
     console.log(this.user); 
+    return this.user
   }
-
-  // get isAuthenticated(): boolean {
-   
-  // }
 
   removeAuth(){
   sessionStorage.removeItem('token');
