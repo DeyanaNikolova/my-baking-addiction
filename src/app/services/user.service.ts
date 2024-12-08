@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription, tap } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { User } from '../models/user.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class UserService {
   subscription: Subscription;
   http = inject(HttpClient);
 
-  constructor() {
+  constructor(private authService: AuthService) {
     const token = sessionStorage.getItem('token');
     this.subscription = this.user$.subscribe((user) => {
       this.user = user;
@@ -30,10 +31,11 @@ export class UserService {
 
   login(email: string, password: string): Observable<User> {
     return this.http
-      .post<User>(this.apiUrl + '/users/login', { email, password })
+      .post<User>(this.apiUrl + '/login', { email, password })
       .pipe(
         tap((user) => {
-          sessionStorage.setItem('token', user.accessToken);
+          this.authService.setAuth(user.accessToken);
+          this.authService.setUser(user);
           this.user$$.next(user);
         })
       );
@@ -42,49 +44,44 @@ export class UserService {
   register(
     email: string,
     username: string,
-    password: string,
+    password: string
   ): Observable<User> {
     return this.http
-      .post<User>(this.apiUrl + '/users/register', {
+      .post<User>(this.apiUrl + '/register', {
         email,
         username,
         password,
       })
       .pipe(
         tap((user) => {
-          sessionStorage.setItem('token', user.accessToken);
+          this.authService.setAuth(user.accessToken);
+          this.authService.setUser(user);
           this.user$$.next(user);
         })
       );
   }
 
-  getToken() {
-    return sessionStorage.getItem('token');
-  }
-
+  
   authHeaders() {
-    const token = this.getToken();
-    const headers = new HttpHeaders({ 'X-Authorization': token as string });
     const options = {
-      headers: headers,
+      headers: new HttpHeaders({
+        'Content-type': 'application/json',
+        'X-Authorization' : this.authService.getToken(),
+      }),
     };
     return options;
   }
 
-  logout(): Observable<User> {
-   return this.http.get<User>(this.apiUrl + '/users/logout', this.authHeaders())
-    .pipe(
-      tap(() => {
-        sessionStorage.removeItem('token');
-        this.user$$.next(undefined);
-        this.isLogged;
-      }))
-    
-    
-    
-    // sessionStorage.removeItem('token');
-    // this.user = undefined;
-    // this.isLogged;
-    // this.authService.removeUser();
+  logout() {
+    this.http.get(this.apiUrl + '/logout', this.authHeaders());
+    this.authService.removeAuth();
+    this.isLogged;
+    this.user$$.next(undefined);
+  }
+
+  getUserData(): Observable<User>{
+    const userId = this.user?._id;
+    console.log(userId);
+    return this.http.get<User>(`${this.apiUrl}/${userId}`, this.authHeaders());
   }
 }
