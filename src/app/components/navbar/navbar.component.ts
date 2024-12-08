@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
+
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +14,7 @@ import { RouterModule, Router } from '@angular/router';
 export class NavbarComponent {
 
  
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userService: UserService) {}
 
   login(){
     this.router.navigate(['/login']);
@@ -22,12 +24,18 @@ export class NavbarComponent {
     this.router.navigate(['/register'])
   }
 
-  logout(){
-
+  logout(): void{
+  this.userService.logout().subscribe(()=>{
+    this.router.navigate(['/home']);
+  });
   }
 
   userProfile(){
     this.router.navigate(['/user-profile']);
+  }
+
+   get isAuthenticated(): boolean{
+    return this.userService.isLogged;
   }
 
 }
