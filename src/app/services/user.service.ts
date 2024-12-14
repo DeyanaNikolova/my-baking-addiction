@@ -61,27 +61,30 @@ export class UserService {
       );
   }
 
-  
   authHeaders() {
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    const token = this.authService.getToken();
+    if (token) {
+      headers = headers.append('X-Authorization', token);
+    }
     const options = {
-      headers: new HttpHeaders({
-        'Content-type': 'application/json',
-        'X-Authorization' : this.authService.getToken(),
-      }),
+      headers: headers,
     };
+
     return options;
   }
 
   logout() {
-    this.http.get(this.apiUrl + '/logout', this.authHeaders());
+    this.http.get(`${this.apiUrl}/logout`, this.authHeaders());
     this.authService.removeAuth();
     this.isLogged;
     this.user$$.next(undefined);
   }
 
-  getUserData(): Observable<User>{
-    const userId = this.user?._id;
-    console.log(userId);
-    return this.http.get<User>(`${this.apiUrl}/${userId}`, this.authHeaders());
+  getUserData(): Observable<User> {
+    const user = JSON.parse(this.authService.getUser());
+    console.log(user._id);
+    return this.http.get<User>(`${this.apiUrl}/${user._id}`, this.authHeaders());
   }
 }
