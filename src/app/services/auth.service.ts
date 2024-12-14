@@ -5,16 +5,15 @@ import { User } from '../models/user.model';
   providedIn: 'root',
 })
 export class AuthService {
-  user: User | undefined;
-
+user: User | undefined;
 
   constructor() {
-    try {
-      const user = sessionStorage.getItem('user') || '';
-      this.user = JSON.parse(user);
-    } catch (error) {
-      this.user = undefined;
-    }
+    // try {
+    //   const user = sessionStorage.getItem('user') || '';
+    //   this.user = JSON.parse(user);
+    // } catch (error) {
+    //   this.user = undefined;
+    // }
   }
 
   setAuth(token: string ) {
@@ -26,20 +25,15 @@ export class AuthService {
   }
 
   getToken() {
-   return sessionStorage.getItem('token') || '';
+   return sessionStorage.getItem('token');
   }
 
   getUser(){
-    const user = sessionStorage.getItem('user') || '';
-    this.user = JSON.parse(user);
-    console.log(this.user); 
-    return this.user
+    return sessionStorage.getItem('user') || '';
   }
 
   removeAuth(){
   sessionStorage.removeItem('token');
   sessionStorage.removeItem('user');
-  }
-  
-  
+  } 
 }
