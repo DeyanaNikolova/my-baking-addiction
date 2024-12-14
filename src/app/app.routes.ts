@@ -6,6 +6,7 @@ import { LoginComponent } from './components/user/login/login.component';
 import { AddRecipeComponent } from './components/recipe/add-recipe/add-recipe.component';
 import { RegisterComponent } from './components/user/register/register.component';
 import { RecipeDetailsComponent } from './components/recipe/recipe-details/recipe-details.component';
+import { UpdateRecipeComponent } from './components/recipe/update-recipe/update-recipe.component';
 
 export const routes: Routes = [
     {
@@ -46,7 +47,7 @@ export const routes: Routes = [
         ]
     },
     {
-        path: 'add-recipe', 
+        path: 'add-recipe',
         component: AddRecipeComponent
-    }
+    },    
 ];
