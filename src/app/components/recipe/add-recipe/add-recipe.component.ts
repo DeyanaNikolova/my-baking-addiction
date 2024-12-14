@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RecipeService } from '../../../services/recipe.service';
 import {
   FormGroup,
@@ -9,7 +9,8 @@ import {
 } from '@angular/forms';
 import { Recipe } from '../../../models/recipe.model';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-add-recipe',
@@ -18,10 +19,10 @@ import { Router } from '@angular/router';
   templateUrl: './add-recipe.component.html',
   styleUrl: './add-recipe.component.css',
 })
-export class AddRecipeComponent {
+export class AddRecipeComponent implements OnInit {
 
-recipeTitle: string = '';
-
+  recipes: Recipe[] = [];
+ // recipe: Recipe | undefined;
 
   titleCtrl = new FormControl('', [
     Validators.required,
@@ -33,7 +34,7 @@ recipeTitle: string = '';
     Validators.minLength(3),
     Validators.maxLength(150),
   ]);
-  imageUrlCtrl = new FormControl( '', [Validators.required]);
+  imageUrlCtrl = new FormControl('', [Validators.required]);
   ingredientsCtrl = new FormControl('', [
     Validators.required,
     Validators.minLength(50),
@@ -56,26 +57,24 @@ recipeTitle: string = '';
     cookTime: this.cookTimeCtrl,
     servings: this.servingsCtrl,
   });
+  @Input() recipe: any;
 
-  constructor(private recipeService: RecipeService, private router: Router) {}
+  constructor(
+    private recipeService: RecipeService,
+    private router: Router,
+  ) {}
 
-  fillForm(recipe: Recipe){
-    this.titleCtrl.setValue(recipe.title);
-    this.shortDescriptionCtrl.setValue(recipe.shortDescription);
-    this.imageUrlCtrl.setValue(recipe.imageUrl);
-    this.ingredientsCtrl.setValue(recipe.ingredients);
-    this.instructionsCtrl.setValue(recipe.instructions);
-    this.prepTimeCtrl.setValue(recipe.prepTime);
-    this.cookTimeCtrl.setValue(recipe.cookTime);
-    this.servingsCtrl.setValue(recipe.servings);
+  ngOnInit(): void {
+  this.recipeService.getAllRecipes();
   }
 
   submit() {
     const value = this.recipeForm.value;
-console.log(value);
-
-   this.recipeService.addRecipe(value).subscribe(()=>{
-    this.router.navigate(['/recipes'])
-   });
+  
+    this.recipeService.addRecipe(value).subscribe((recipe)=>{
+      this.recipe = recipe;
+      this.recipeForm.reset();
+      this.router.navigate(['/recipes']);
+    });
   }
 }
