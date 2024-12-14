@@ -1,36 +1,22 @@
-<div class="container-md flex" >
-    <div class="card" style="width: 18rem;"  *ngFor="let recipe of recipes">
-        <img src="{{recipe.imageUrl }}" class="card-img-top" alt="recipe image">
-        <div class="card-body">
-          <h5 class="card-title">{{recipe.title}}</h5>
-          <p class="card-text">{{recipe.shortDescription}}</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Prep Time: {{recipe.prepTime}}</li>
-          <li class="list-group-item">Cook Time: {{ recipe.cookTime}}</li>
-          <li class="list-group-item">Servings: {{ recipe.servings}}</li>
-        </ul>
-        <div class="card-body">
-          <a [routerLink]="recipe._id" class="card-link"> See Full Recipe</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div>
-
-      <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">An item</li>
-          <li class="list-group-item">A second item</li>
-          <li class="list-group-item">A third item</li>
-        </ul>
-        <div class="card-body">
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div>
+<div class="card-group"  *ngFor="let recipe of recipes">
+  <div class="card container-md flex" style="width: 22rem;">
+    <img src="{{recipe.imageUrl }}" class="card-img-top sm" alt="recipe image">
+    <div class="card-body">
+      <h5 class="card-title">{{recipe.title}}</h5>
+      <p class="card-text">{{recipe.shortDescription}}</p>
+    </div>
+    <div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Prep Time: {{recipe.prepTime}}</li>
+      <li class="list-group-item">Cook Time: {{ recipe.cookTime}}</li>
+      <li class="list-group-item">Servings: {{ recipe.servings}}</li>
+    </ul>
   </div>
-  
+  <div>
+    <a [routerLink]="recipe._id" class="card-link"> See Full Recipe</a>
+  </div>
+    <div class="card-footer">
+      <small class="text-body-secondary">Last updated {{recipe._updatedOn }} mins ago</small>
+    </div>
+  </div>
+</div>
