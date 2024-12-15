@@ -11,16 +11,14 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-update-recipe',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './update-recipe.component.html',
-  styleUrl: './update-recipe.component.css'
+  styleUrl: './update-recipe.component.css',
 })
-export class UpdateRecipeComponent implements OnInit{
-
+export class UpdateRecipeComponent implements OnInit {
   recipeId: string = '';
   constructor(
     private recipeService: RecipeService,
@@ -28,18 +26,16 @@ export class UpdateRecipeComponent implements OnInit{
     private router: Router
   ) {}
 
- 
   @Input() recipe: any;
-  
+
   titleCtrl = new FormControl('', [
     Validators.required,
     Validators.minLength(3),
     Validators.maxLength(35),
   ]);
-  shortDescriptionCtrl = new FormControl('', [
+  descriptionCtrl = new FormControl('', [
     Validators.required,
-    Validators.minLength(3),
-    Validators.maxLength(150),
+    Validators.minLength(50),
   ]);
   imageUrlCtrl = new FormControl('', [Validators.required]);
   ingredientsCtrl = new FormControl('', [
@@ -56,7 +52,7 @@ export class UpdateRecipeComponent implements OnInit{
 
   recipeForm: FormGroup = new FormGroup({
     title: this.titleCtrl,
-    shortDescription: this.shortDescriptionCtrl,
+    description: this.descriptionCtrl,
     imageUrl: this.imageUrlCtrl,
     ingredients: this.ingredientsCtrl,
     instructions: this.instructionsCtrl,
@@ -65,32 +61,30 @@ export class UpdateRecipeComponent implements OnInit{
     servings: this.servingsCtrl,
   });
 
-
-  ngOnInit(){
-    if(this.recipe){
-    this.titleCtrl.setValue(this.recipe.title);
-    this.shortDescriptionCtrl.setValue(this.recipe.shortDescription);
-    this.imageUrlCtrl.setValue(this.recipe.imageUrl);
-    this.ingredientsCtrl.setValue(this.recipe.ingredients);
-    this.instructionsCtrl.setValue(this.recipe.instructions);
-    this.prepTimeCtrl.setValue(this.recipe.prepTime);
-    this.cookTimeCtrl.setValue(this.recipe.cookTime);
-    this.servingsCtrl.setValue(this.recipe.servings);
+  ngOnInit() {
+    if (this.recipe) {
+      this.titleCtrl.setValue(this.recipe.title);
+      this.descriptionCtrl.setValue(this.recipe.description);
+      this.imageUrlCtrl.setValue(this.recipe.imageUrl);
+      this.ingredientsCtrl.setValue(this.recipe.ingredients);
+      this.instructionsCtrl.setValue(this.recipe.instructions);
+      this.prepTimeCtrl.setValue(this.recipe.prepTime);
+      this.cookTimeCtrl.setValue(this.recipe.cookTime);
+      this.servingsCtrl.setValue(this.recipe.servings);
     }
   }
 
-  submit(){
+  submit() {
     const value = this.recipeForm.value;
     const id = this.recipe._id;
-    this.recipeService.updateRecipe(value, id).subscribe((recipe)=>{
+    this.recipeService.updateRecipe(value, id).subscribe((recipe) => {
       this.recipe = recipe;
       this.router.navigate(['/recipes']);
     });
-    this.closeModal()
+    this.closeModal();
   }
-    
 
-    closeModal() {
-      this.activeModal.close();
-    }
+  closeModal() {
+    this.activeModal.close();
+  }
 }
