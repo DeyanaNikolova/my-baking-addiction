@@ -3,5 +3,7 @@ export interface User{
     username: string;
     email: string;
     password: string;
-    accessToken: string
+    accessToken: string;
+    recipe: string[];
+    posts: string[];
 }
