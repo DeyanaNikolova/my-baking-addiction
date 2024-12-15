@@ -5,11 +5,12 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateRecipeComponent } from '../update-recipe/update-recipe.component';
+import { PostComponent } from '../../post/post.component';
 
 @Component({
   selector: 'app-recipe-details',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, PostComponent],
   templateUrl: './recipe-details.component.html',
   styleUrl: './recipe-details.component.css',
 })
