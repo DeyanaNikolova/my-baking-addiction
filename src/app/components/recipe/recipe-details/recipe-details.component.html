@@ -5,8 +5,8 @@
 
     <ul class="list-group list-group-flush">
       <li class="list-group-item">
-        <p class="text-bg-dark">Short Description</p>
-        <p class="card-text">{{ recipe.shortDescription }}</p>
+        <p class="text-bg-dark">Description</p>
+        <p class="card-text">{{ recipe.description }}</p>
       </li>
       <li class="list-group-item">
         <p class="text-bg-dark">Ingredients</p>
@@ -32,6 +32,9 @@
   <button class="btn btn-outline-success" style="display: none;" (click)="fillForm(recipe)">
     <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
   </button>
+</div>
+<div>
+  <app-post></app-post>
 </div>
     
     <div>
