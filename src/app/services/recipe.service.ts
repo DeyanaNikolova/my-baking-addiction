@@ -16,26 +16,26 @@ export class RecipeService {
 
   constructor(private userService: UserService, private authService: AuthService) {}
 
-  getRecipeDetails(id: string): Observable<Recipe> {
-    return this.http.get<Recipe>(`${this.recipe_url}/recipe/${id}`);
+  getRecipeDetails(recipeId: string): Observable<Recipe> {
+    return this.http.get<Recipe>(`${this.recipe_url}/${recipeId}`);
   }
 
   addRecipe(recipe: Recipe): Observable<Recipe> {
     const options = this.userService.authHeaders();
-    return this.http.post<Recipe>(this.recipe_url + '/recipe', recipe, options);
+    return this.http.post<Recipe>(this.recipe_url, recipe, options);
   }
 
   updateRecipe(recipe: Recipe, recipeId: string): Observable<Recipe> {
     const options = this.userService.authHeaders();
-    return this.http.put<Recipe>(`${this.recipe_url}/recipe/${recipeId}`, recipe, options);
+    return this.http.put<Recipe>(`${this.recipe_url}/${recipeId}`, recipe, options);
   }
 
   deleteRecipe(recipeId: string): Observable<any>{
     const options = this.userService.authHeaders();
-    return this.http.delete(`${this.recipe_url}/recipe/${recipeId}`, options);
+    return this.http.delete(`${this.recipe_url}/${recipeId}`, options);
   }
 
   getAllRecipes(): Observable<Recipe[]> {
-    return this.http.get<Recipe[]>(`${this.recipe_url}/recipe`);
+    return this.http.get<Recipe[]>(this.recipe_url);
   }
 }
