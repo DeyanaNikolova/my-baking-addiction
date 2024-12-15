@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateRecipeComponent } from '../update-recipe/update-recipe.component';
 import { PostComponent } from '../../post/post.component';
+import { UserService } from '../../../services/user.service';
+
 
 @Component({
   selector: 'app-recipe-details',
@@ -17,12 +19,14 @@ import { PostComponent } from '../../post/post.component';
 export class RecipeDetailsComponent implements OnInit {
   recipe: Recipe | undefined;
   recipes: Recipe[] = [];
+  isOwner: boolean = false;
+
 
   constructor(
     private recipeService: RecipeService,
     private activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
