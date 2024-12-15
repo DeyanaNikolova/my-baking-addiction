@@ -23,21 +23,20 @@
             <span *ngIf="titleCtrl.errors['maxlength']">Title sholud not be longer than 35 characters!</span>
           </div>
   
-          <!-- Short Description -->
+          <!-- Description -->
           <div class="mb-3">
-            <label for="shortDescription" class="form-label">Short Description</label>
+            <label for="description" class="form-label">Description</label>
             <input
-              formControlName="shortDescription"
+              formControlName="description"
               type="text"
               class="form-control"
-              name="shortDescription"
-              [ngClass]="{'is-invalid': shortDescriptionCtrl.errors && shortDescriptionCtrl.dirty, 'is-valid': !shortDescriptionCtrl.errors && shortDescriptionCtrl.dirty}"
+              name="description"
+              [ngClass]="{'is-invalid': descriptionCtrl.errors && descriptionCtrl.dirty, 'is-valid': !descriptionCtrl.errors && descriptionCtrl.dirty}"
             />
           </div>
-          <div class="mb-3 text-danger" *ngIf="shortDescriptionCtrl.errors && shortDescriptionCtrl.dirty">
-            <span *ngIf="shortDescriptionCtrl.errors['required']">Short description is required!</span>
-            <span *ngIf="shortDescriptionCtrl.errors['minlength']">Description sholud be at least 3 characters long!</span>
-            <span *ngIf="shortDescriptionCtrl.errors['maxlength']">Description sholud not be longer than 150 characters!</span>
+          <div class="mb-3 text-danger" *ngIf="descriptionCtrl.errors && descriptionCtrl.dirty">
+            <span *ngIf="descriptionCtrl.errors['required']">Description is required!</span>
+            <span *ngIf="descriptionCtrl.errors['minlength']">Description sholud be at least 3 characters long!</span>
           </div>
   
           <!-- Image -->
