@@ -16,7 +16,7 @@
     <a [routerLink]="recipe._id" class="card-link"> See Full Recipe</a>
   </div>
     <div class="card-footer">
-      <small class="text-body-secondary">Last updated {{recipe._updatedOn }} mins ago</small>
+      <small class="text-body-secondary">Last updated: {{recipe._updatedOn | date : "medium"}}</small>
     </div>
   </div>
 </div>
