@@ -6,7 +6,6 @@ export interface Post{
     _ownerId: User;
     title: string;
     text: string;
-    recipeId: Recipe;
+    author: string;
     _createdOn: string;
-    _updatedOn: string;
 }
