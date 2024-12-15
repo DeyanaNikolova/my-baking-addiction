@@ -29,10 +29,9 @@ export class AddRecipeComponent implements OnInit {
     Validators.minLength(3),
     Validators.maxLength(35),
   ]);
-  shortDescriptionCtrl = new FormControl('', [
+  descriptionCtrl = new FormControl('', [
     Validators.required,
-    Validators.minLength(3),
-    Validators.maxLength(150),
+    Validators.minLength(50),
   ]);
   imageUrlCtrl = new FormControl('', [Validators.required]);
   ingredientsCtrl = new FormControl('', [
@@ -49,7 +48,7 @@ export class AddRecipeComponent implements OnInit {
 
   recipeForm: FormGroup = new FormGroup({
     title: this.titleCtrl,
-    shortDescription: this.shortDescriptionCtrl,
+    description: this.descriptionCtrl,
     imageUrl: this.imageUrlCtrl,
     ingredients: this.ingredientsCtrl,
     instructions: this.instructionsCtrl,
