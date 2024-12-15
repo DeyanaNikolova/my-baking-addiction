@@ -11,7 +11,7 @@ export interface Recipe{
     prepTime: string;
     cookTime: string;
     servings: number;
-    _createdOn: Time;
-    _updatedOn: Time;
+    _createdOn: string;
+    _updatedOn: string;
     _ownerId: User; 
 }
