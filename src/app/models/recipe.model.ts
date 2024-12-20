@@ -14,4 +14,5 @@ export interface Recipe{
     _ownerId: User;
     _createdOn: string;
     _updatedOn: string;
+    comments: string[];
 }
