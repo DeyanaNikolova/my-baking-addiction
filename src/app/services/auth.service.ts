@@ -7,14 +7,7 @@ import { User } from '../models/user.model';
 export class AuthService {
 user: User | undefined;
 
-  constructor() {
-    // try {
-    //   const user = sessionStorage.getItem('user') || '';
-    //   this.user = JSON.parse(user);
-    // } catch (error) {
-    //   this.user = undefined;
-    // }
-  }
+  constructor() {}
 
   setAuth(token: string ) {
    sessionStorage.setItem('token', token);
@@ -36,4 +29,5 @@ user: User | undefined;
   sessionStorage.removeItem('token');
   sessionStorage.removeItem('user');
   } 
+  
 }
