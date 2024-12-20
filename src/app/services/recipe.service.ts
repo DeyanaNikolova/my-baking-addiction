@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment.development';
 import { Recipe } from '../models/recipe.model';
 import { Observable } from 'rxjs';
 import { UserService } from './user.service';
-import { AuthService } from './auth.service';
+
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class RecipeService {
 
   http = inject(HttpClient);
 
-  constructor(private userService: UserService, private authService: AuthService) {}
+  constructor(private userService: UserService) {}
 
   getRecipeDetails(recipeId: string): Observable<Recipe> {
     return this.http.get<Recipe>(`${this.recipe_url}/${recipeId}`);
@@ -37,5 +37,9 @@ export class RecipeService {
 
   getAllRecipes(): Observable<Recipe[]> {
     return this.http.get<Recipe[]>(this.recipe_url);
+  }
+  
+  getRecipeById(recipeId: string): Observable<Recipe>{
+    return this.http.get<Recipe>(`${this.recipe_url}/${recipeId}`);
   }
 }
