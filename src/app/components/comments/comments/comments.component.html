@@ -1,0 +1,29 @@
+<div class="comments">
+    <h3 class="comments-title">Comments</h3>
+    <div class="comment-form-title">Write comment</div>
+    <app-comment-form
+    (recipeId)="recipeId"
+      submitLabel="Write"
+      (handleSubmit)="addComment({ recipeId: recipeId, text: $event })"
+    >
+    </app-comment-form>
+  
+    <div class="comments-container">
+
+      <div class="comment" *ngFor="let comment of comments"> 
+        <div class="comment-image-container">
+          <img src="/assets/user-icon.png" alt="">
+        </div>
+        <div class="comment-content">
+          <div class="comment-author">
+            {{comment.username}}
+          </div>
+        </div>
+        <div class="comment-text">
+          {{comment.body}}
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  

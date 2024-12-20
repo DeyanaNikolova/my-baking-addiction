@@ -1,0 +1,25 @@
+<form [formGroup]="commentForm" (ngSubmit)="submit()">
+    <textarea class="comment-form-textarea" formControlName="title"
+    [ngClass]="{
+      'is-invalid': titleCtrl.errors && titleCtrl.dirty,
+      'is-valid': !titleCtrl.errors && titleCtrl.dirty
+    }"
+    ></textarea>
+      <div class="mb-3 text-danger" *ngIf="titleCtrl.errors && titleCtrl.dirty">
+        <span *ngIf="titleCtrl.errors['required']">Comment is required!</span>
+        <span *ngIf="titleCtrl.errors['maxlength']"
+          >Comment sholud not be longet than 350 characters!</span
+        >
+    </div>
+    <button class="comment-form-button" type="submit" [disabled]="commentForm.invalid">
+      {{ submitLabel }}
+    </button>
+    <button
+      *ngIf="hasCancelButton"
+      class="comment-form-button comment-form-cancel-button"
+      type="button"
+    >
+      Cancel
+    </button>
+  </form>
+  
