@@ -26,7 +26,7 @@
       <li class="list-group-item">Servings: {{ recipe.servings }}</li>
     </ul>
 
-<div class="btn-group" role="group">
+<div class="btn-group" role="group" *ngIf="isOwner">
   <button class="btn btn-outline-success" (click)="openModal(recipe)">Update</button>
   <button class="btn btn-danger " (click)="remove()">Remove</button>
   <button class="btn btn-outline-success" style="display: none;" (click)="fillForm(recipe)">
@@ -34,7 +34,9 @@
   </button>
 </div>
 <div>
-  <app-post></app-post>
+ <app-comments *ngIf="!isOwner">
+  <app-comment-form></app-comment-form>
+ </app-comments>
 </div>
     
     <div>

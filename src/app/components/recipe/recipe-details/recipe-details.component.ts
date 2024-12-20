@@ -1,25 +1,29 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Recipe } from '../../../models/recipe.model';
 import { RecipeService } from '../../../services/recipe.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateRecipeComponent } from '../update-recipe/update-recipe.component';
-import { PostComponent } from '../../post/post.component';
+import { CommentFormComponent } from '../../comments/comments/comment-form/comment-form.component';
+import { CommentsComponent } from "../../comments/comments/comments.component";
 import { UserService } from '../../../services/user.service';
+
 
 
 @Component({
   selector: 'app-recipe-details',
   standalone: true,
-  imports: [CommonModule, RouterModule, PostComponent],
+  imports: [CommonModule, RouterModule, CommentFormComponent, CommentsComponent],
   templateUrl: './recipe-details.component.html',
   styleUrl: './recipe-details.component.css',
 })
 export class RecipeDetailsComponent implements OnInit {
+  @Input() recipeId: string = this.activatedRoute.snapshot.params['recipeId'];
+  // @Output() recipeId = new EventEmitter<Recipe>();
   recipe: Recipe | undefined;
   recipes: Recipe[] = [];
-  isOwner: boolean = false;
+  isRecipeOwner: boolean = false;
 
 
   constructor(
@@ -27,18 +31,28 @@ export class RecipeDetailsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private router: Router,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
     this.getRecipeDetails();
   }
+
+
   getRecipeDetails() {
     const recipeId = this.activatedRoute.snapshot.params['recipeId'];
-
     this.recipeService.getRecipeDetails(recipeId).subscribe((recipe) => {
       this.recipe = recipe;
-      console.log(this.recipe);
     });
+  }
+  
+  get isOwner(): boolean{
+    const currentUser = this.userService.user;
+    if(currentUser?._id === this.recipe?._ownerId){
+      return this.isRecipeOwner = true;
+    }else{
+      return this.isRecipeOwner = false;
+    }
   }
 
   remove() {
