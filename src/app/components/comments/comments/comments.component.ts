@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommentService } from '../../../services/comment.service';
 import { UserService } from '../../../services/user.service';
 
+
 @Component({
   selector: 'app-comments',
   standalone: true,
@@ -14,48 +15,57 @@ import { UserService } from '../../../services/user.service';
   styleUrl: './comments.component.css',
 })
 export class CommentsComponent implements OnInit {
-  @Input() currentUserId!: string;
-  @Input() recipeId: string = this.activatedRoute.snapshot.params['recipeId'];
-
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private commentService: CommentService,
-    private userService: UserService
+  @Input() currentUserId: string | undefined = this.userService.user?._id;
+ @Input() recipeId: string = this.activatedRoute.snapshot.params['recipeId'];
+//  @Input() username: string | undefined = this.userService.user?.username;
+ constructor(
+   private activatedRoute: ActivatedRoute,
+   private commentService: CommentService,
+   private userService: UserService
   ) {}
-
+  @Input() comment: Comment | undefined;
   comments: Comment[] = [];
-  @Input() replyId: string | null = null;
-
+  canComment: boolean = false;
+  
   ngOnInit(): void {
-    this.getRelarion();
     this.getCommensByRecipe();
+   
   }
-
+  
+  hasCommented(){
+    if(this.userService.user?._id === this.comment?.userId){
+      this.canComment = false;
+    }else{
+      this.canComment = true;
+    }
+  }
   getAll() {
     this.commentService.getAll().subscribe((comments) => {
-      console.log(comments);
     });
   }
-  getRelarion(){
+  getRelarion() {
     const recipeId = this.activatedRoute.snapshot.params['recipeId'];
-    this.commentService.getCommentsRelation(recipeId).subscribe(comments=>{
-      console.log(comments);   
+    this.commentService.getCommentsRelation(recipeId).subscribe(() => {
+      console.log('Relation created');
     });
   }
-
+  
   getCommensByRecipe() {
     const id = this.activatedRoute.snapshot.params['recipeId'];
     this.commentService.getAllCommentsByRecipeId(id).subscribe((comments) => {
       this.comments = comments;
     });
   }
-
+  
   addComment({ recipeId, text }: { recipeId: string; text: string }): void {
-    const id = this.activatedRoute.snapshot.params['recipeId'];
-    const username = this.userService.user?.username;
-
-    this.commentService.addComment(id, text).subscribe((ctreatedComment) => {
-      this.comments = [...this.comments, ctreatedComment];
+    recipeId = this.activatedRoute.snapshot.params['recipeId'];    
+    this.commentService.addComment(recipeId, text).subscribe((createdComment) => {
+      this.comment = createdComment;
+      this.comments = [...this.comments, createdComment];
     });
+  }
+
+  get isAuthentivated(): boolean{
+    return this.userService.isLogged;
   }
 }
