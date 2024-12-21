@@ -7,6 +7,7 @@ import { AddRecipeComponent } from './components/recipe/add-recipe/add-recipe.co
 import { RegisterComponent } from './components/user/register/register.component';
 import { RecipeDetailsComponent } from './components/recipe/recipe-details/recipe-details.component';
 import { authGuard } from './guards/auth.guard';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 
 export const routes: Routes = [
@@ -53,5 +54,9 @@ export const routes: Routes = [
         path: 'add-recipe',
         component: AddRecipeComponent,
         canActivate: [authGuard]
-    },    
+    }, 
+    {
+        path: '**',
+        component: PageNotFoundComponent 
+      }  
 ];
