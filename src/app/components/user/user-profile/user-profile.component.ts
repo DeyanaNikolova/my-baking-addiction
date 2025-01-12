@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user.model';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../services/auth.service';
+
 
 @Component({
   selector: 'app-user-profile',
@@ -13,16 +13,10 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class UserProfileComponent implements OnInit {
   user: User | undefined;
+
   constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.getUser();
-     this.user = this.userService.user;
-  }
-  getUser() {
-      this.userService.getUserData().subscribe((user) => {
-     //   this.user = user;
-        console.log(user);
-      });
+    this.user = this.userService.user;
   }
 }
