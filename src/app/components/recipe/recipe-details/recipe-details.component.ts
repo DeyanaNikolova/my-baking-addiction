@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Recipe } from '../../../models/recipe.model';
 import { RecipeService } from '../../../services/recipe.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -8,6 +8,8 @@ import { UpdateRecipeComponent } from '../update-recipe/update-recipe.component'
 import { CommentFormComponent } from '../../comments/comments/comment-form/comment-form.component';
 import { CommentsComponent } from "../../comments/comments/comments.component";
 import { UserService } from '../../../services/user.service';
+
+
 
 
 
@@ -25,19 +27,17 @@ export class RecipeDetailsComponent implements OnInit {
   recipes: Recipe[] = [];
   isRecipeOwner: boolean = false;
 
-
   constructor(
     private recipeService: RecipeService,
     private activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
   ) {}
 
   ngOnInit(): void {
-    this.getRecipeDetails();
+    this.getRecipeDetails(); 
   }
-
 
   getRecipeDetails() {
     const recipeId = this.activatedRoute.snapshot.params['recipeId'];
@@ -45,14 +45,18 @@ export class RecipeDetailsComponent implements OnInit {
       this.recipe = recipe;
     });
   }
-  
   get isOwner(): boolean{
     const currentUser = this.userService.user;
     if(currentUser?._id === this.recipe?._ownerId){
       return this.isRecipeOwner = true;
-    }else{
-      return this.isRecipeOwner = false;
     }
+    else{
+      return this.isRecipeOwner = false;
+    }  
+  }
+
+  get isAuthenticated(): boolean {
+    return this.userService.isLogged;
   }
 
   remove() {
