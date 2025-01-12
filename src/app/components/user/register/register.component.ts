@@ -1,35 +1,39 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, Validators, FormControl, FormsModule } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
 
+  emailCtrl = new FormControl('', [Validators.required, Validators.email]);
+  usernameCtrl = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]);
+  passwordCtrl =  new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]);
+  repasswordCtrl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]);
+
   registerForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]),
-    password: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
-    repassword: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)])
+    email: this.emailCtrl,
+    username: this.usernameCtrl,
+    password:this.passwordCtrl,
+    repassword: this.repasswordCtrl,
   });
 
   constructor(private userService: UserService, private router: Router) {}
 
 
   submit(){
-    if(this.registerForm.invalid){
+    const { email, username, password, repassword } = this.registerForm.value;
+
+    if(password !== repassword){
       return;
     }
-
-    const { email, username, password } = this.registerForm.value;
-    console.log(email, username, password);
-    
     this.userService.register( email, username, password ).subscribe(()=>{  
       this.router.navigate(['/recipes']);
     })

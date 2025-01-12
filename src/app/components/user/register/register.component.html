@@ -3,12 +3,24 @@
       <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
   
       <div class="form-floating">
-        <input type="email" class="form-control" id="floatingInput" name="email" formControlName="email"/>
+        <input type="email" class="form-control" id="floatingInput" name="email" formControlName="email"
+        [ngClass]="{'is-invalid': emailCtrl.errors && emailCtrl.dirty, 'is-valid': !emailCtrl.errors && emailCtrl.dirty}"
+        />
         <label for="floatingInput">Email</label>
       </div>
+      <div class="mb-3 text-danger" *ngIf="emailCtrl.touched">
+        <span class="error" *ngIf="emailCtrl.errors?.['required']">Email is required!</span>
+        <span class="error" *ngIf="emailCtrl.errors?.['email']">Email is not valid!</span>
+    </div>
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" name="username" formControlName="username"/>
+        <input type="text" class="form-control" id="floatingInput" name="username" formControlName="username"
+        [ngClass]="{'is-invalid': usernameCtrl.errors && usernameCtrl.dirty, 'is-valid': !usernameCtrl.errors && usernameCtrl.dirty}"
+        />
         <label for="floatingInput">User Name</label>
+      </div>
+      <div class="mb-3 text-danger" *ngIf="usernameCtrl.touched">
+        <span *ngIf="usernameCtrl.errors?.['required']"class="error">User name is requred!</span>
+        <span *ngIf="usernameCtrl.errors?.['minlength']"class="error">User name must be minimum 4 characres!</span>
       </div>
 
       <div class="form-floating">
@@ -18,8 +30,13 @@
           id="floatingPassword"
           name="repassword"
           formControlName="password"
+          [ngClass]="{'is-invalid': passwordCtrl.errors && passwordCtrl.dirty, 'is-valid': !passwordCtrl.errors && passwordCtrl.dirty}"
         />
         <label for="floatingPassword">Password</label>
+      </div>
+      <div class="mb-3 text-danger" *ngIf="passwordCtrl.touched">
+        <span *ngIf="passwordCtrl.errors?.['required']"class="error">Pasword is requred!</span>
+        <span *ngIf="passwordCtrl.errors?.['minlength']"class="error">Pasword must be minimum 5 characres!</span>
       </div>
 
       <div class="form-floating">
@@ -29,13 +46,18 @@
           id="floatingPassword"
           name="password"
           formControlName="repassword"
+          [ngClass]="{'is-invalid': repasswordCtrl.errors && repasswordCtrl.dirty, 'is-valid': !repasswordCtrl.errors && repasswordCtrl.dirty}"
         />
         <label for="floatingPassword">Confirm Password</label>
+      </div>
+      <div class="mb-3 text-danger" *ngIf="repasswordCtrl.touched">
+        <span *ngIf="repasswordCtrl.errors?.['required']"class="error">Pasword is requred!</span>
+        <span *ngIf="repasswordCtrl.errors?.['minlength']"class="error">Pasword must be minimum 5 characres!</span>
       </div>
       <div class="checkbox mb-3">
         <label> <input type="checkbox" value="remember-me" /> Remember me </label>
       </div>
-      <button class="btn btn-primary btn-lg w-100 py-2" type="submit">Sign in</button>
+      <button class="btn btn-primary btn-lg w-100 py-2" type="submit" [disabled]="registerForm.invalid">Sign in</button>
       <p class="mt-5 mb-3 text-muted">© 2024</p>
     </form>
   </main>
