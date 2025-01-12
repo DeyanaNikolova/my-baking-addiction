@@ -15,21 +15,22 @@
             <h3>Already a member? <a routerLink="/login">Log in</a> to your account</h3>
           </div>
     </div>
- <div class="container">
-        <div class="card" style="width: 18rem" *ngFor="let recipe of recentRecipes">
-          <div class="image-wrap">
-            <img
-              src="{{ recipe.imageUrl }}"
-              class="card-img-top"
-              alt="{{ recipe.title }}"
-            />
-          </div>
-          <div class="card-body">
-            <p class="card-text">{{ recipe.title }}</p>
-          </div>
-        </div>
-     
- </div>
+
+    <!-- Recent recipes -->
+  <!-- <div class="container">
+    <div class="card" style="width: 18rem" *ngFor="let recipe of recentRecipes">
+      <div class="image-wrap">
+        <img
+          src="{{ recipe.imageUrl }}"
+          class="card-img-top"
+          alt="{{ recipe.title }}"
+        />
+      </div>
+      <div class="card-body">
+        <p class="card-text">{{ recipe.title }}</p>
+      </div>
+    </div> 
+ 
+</div> -->
  
 </div>
-<!-- Recent Recipes -->
