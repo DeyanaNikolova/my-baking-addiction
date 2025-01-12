@@ -28,15 +28,14 @@ export class CommentsComponent implements OnInit {
   canComment: boolean = false;
   
   ngOnInit(): void {
-    this.getCommensByRecipe();
-   
+    this.getCommensByRecipe(); 
   }
   
   hasCommented(){
     if(this.userService.user?._id === this.comment?.userId){
-      this.canComment = false;
+      this.canComment = false;  
     }else{
-      this.canComment = true;
+      this.canComment = true;  
     }
   }
   getAll() {
@@ -65,7 +64,7 @@ export class CommentsComponent implements OnInit {
     });
   }
 
-  get isAuthentivated(): boolean{
+  get isAuthenticated(): boolean{
     return this.userService.isLogged;
   }
 }
