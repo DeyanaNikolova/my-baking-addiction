@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class UserService {
-  apiUrl = environment.api_url;
+  api_url = environment.api_url;
 
   private user$$ = new BehaviorSubject<User | undefined>(undefined);
   user$ = this.user$$.asObservable();
@@ -31,7 +31,7 @@ export class UserService {
 
   login(email: string, password: string): Observable<User> {
     return this.http
-      .post<User>(this.apiUrl + '/login', { email, password })
+      .post<User>(`${this.api_url}/login`, { email, password })
       .pipe(
         tap((user) => {
           this.authService.setAuth(user.accessToken);
@@ -47,7 +47,7 @@ export class UserService {
     password: string
   ): Observable<User> {
     return this.http
-      .post<User>(this.apiUrl + '/register', {
+      .post<User>(`${this.api_url}/register`, {
         email,
         username,
         password,
@@ -76,15 +76,17 @@ export class UserService {
   }
 
   logout() {
-    this.http.get(`${this.apiUrl}/logout`, this.authHeaders());
+    this.http.get(`${this.api_url}/logout`, this.authHeaders());
     this.authService.removeAuth();
     this.isLogged;
     this.user$$.next(undefined);
   }
 
-  getUserData(): Observable<User> {
-    const user = JSON.parse(this.authService.getUser());
-    console.log(user._id);
-    return this.http.get<User>(`${this.apiUrl}/${user._id}`, this.authHeaders());
+  getUserDetails() {
+    const id = this.user?._id;
+
+    return this.http
+      .get<User>(`${this.api_url}/${id}`, this.authHeaders())
+      .pipe(tap((user) => this.user$$.next(user)));
   }
 }
