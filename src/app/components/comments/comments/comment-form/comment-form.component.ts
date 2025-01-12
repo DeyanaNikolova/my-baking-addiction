@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -14,8 +14,6 @@ export class CommentFormComponent implements OnInit{
   @Input()initialText: string = '';
   @Input() submitLabel: string = '';
   @Input() hasCancelButton: boolean = false;
-
-  fb = inject(FormBuilder);
 
   titleCtrl = new FormControl(this.initialText, [Validators.required, Validators.maxLength(350)]);
 
